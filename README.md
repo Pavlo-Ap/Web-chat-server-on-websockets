@@ -10,5 +10,8 @@ git clone https://github.com/Pavlo-Ap/Web-chat-server-on-websockets.git
 transport in Web-chat-server-on-websockets directory
 cd Web-chat-server-on-websockets
 
+install requirments
+pip install -r requirements.txt
+
 run the program
  py app.py
