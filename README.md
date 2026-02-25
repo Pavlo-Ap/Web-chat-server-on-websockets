@@ -8,7 +8,7 @@ clone project
 git clone https://github.com/Pavlo-Ap/Web-chat-server-on-websockets.git
 
 transport in Web-chat-server-on-websockets directory
-cd 
+cd Web-chat-server-on-websockets
 
 run the program
  py app.py
