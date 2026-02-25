@@ -1,0 +1,37 @@
+<head>
+    <title>Your Rooms</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<h2>Your rooms</h2>
+
+<div class="chat-container">
+    <div class="create-room">
+        <form method="post">
+            <input name="room_name" placeholder="New room name" required>
+            <button>Create</button>
+        </form>
+    </div>
+
+    <h3>Owned</h3>
+    {% for r in owned %}
+        <div class="room-block">
+            <a href="/chat/{{r.id}}">{{r.name}}</a>
+
+            <form action="/invite/{{r.id}}" method="post" class="invite-form">
+                <input name="username" placeholder="Invite user">
+                <button>Invite</button>
+            </form>
+        </div>
+    {% endfor %}
+
+    <h3>Joined</h3>
+    {% for r in joined %}
+        <div class="room-block">
+            <a href="/chat/{{r.id}}">{{r.name}}</a>
+        </div>
+    {% endfor %}
+
+</div>
+</body>

@@ -1,0 +1,50 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<h2>{{ room_name }}</h2>
+
+<div class="chat-container">
+    <div id="chat">
+        {% for m in messages %}
+        <p>
+            <b>{{ m.username }}</b>:
+            {{ m.text }}
+        </p>
+        {% endfor %}
+    </div>
+
+    <div class="chat-input">
+        <input id="msg">
+        <button onclick="send()">Send</button>
+    </div>
+</div>
+
+<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+<script>
+const socket = io();
+const room_id = "{{ room_id }}";
+
+socket.emit("join", { room_id });
+socket.on("message", data => {
+  chat.innerHTML += `<p style="color:${data.color}">
+    <b>${data.user}</b>: ${data.msg}
+  </p>`;
+});
+
+socket.on("status", data => {
+  chat.innerHTML += `<p style="color:gray"><i>${data.msg}</i></p>`;
+});
+
+function send() {
+  socket.emit("message", {
+    room_id,
+    msg: msg.value
+  });
+  msg.value = "";
+}
+
+window.addEventListener("beforeunload", () => {
+  socket.emit("leave", { room_id });
+});
+</script>
+
+
